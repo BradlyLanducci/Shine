@@ -12,6 +12,7 @@
 
 ShineProcessor::ShineProcessor()
 {
+    theReverb.createDelays();
 }
 
 ShineProcessor::~ShineProcessor()
@@ -28,17 +29,5 @@ void ShineProcessor::process(juce::AudioBuffer<float>& buffer)
             channels.push_back(buffer.getWritePointer(stereoChannel));
     }
 
-    DBG(channels.size());
-
-    for (int sample = 0; sample < buffer.getNumSamples(); sample++)
-    {
-        float wetSampleL = dl_L1.ReadFrac(1000.f);
-        float wetSampleR = dl_R1.ReadFrac(1000.f);
-
-        dl_L1.Write(0.5f * channels[1][sample] + wetSampleR);
-        dl_R1.Write(0.5f * wetSampleL);
-
-        channels[0][sample] = channels[0][sample] + wetSampleL;
-        channels[1][sample] = channels[1][sample] + wetSampleR;
-    }
+    theReverb.process(buffer, channels);
 }

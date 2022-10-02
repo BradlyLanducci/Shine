@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 
-#define BUF_SIZE 10000
+#define BUF_SIZE 100000
 
 class DelayLine
 {
