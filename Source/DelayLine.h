@@ -1,9 +1,11 @@
 #pragma once
 
 #include "stdint.h"
-#include "vector"
+#include <stdlib.h>
+#include <vector>
+#include <algorithm>
 
-#define BUF_SIZE 480000
+#define BUF_SIZE 10000
 
 class DelayLine
 {
@@ -12,21 +14,22 @@ public:
 	~DelayLine();
 
 	// Set buffer memory
-	void setMemory();
+	void SetBufSize(const int bufSize);
+	void SetMemory();
 
 	// Clear Buffer
-	void clear();
+	void Clear();
 
 	// Write sample and shift all samples
-	void write(float sample);
-
-	float linint(const float fr, const float x0, const float x1) const;
+	void Write(float sample);
 
 	// Read item at offset location
-	float read(int offset);
-	float readfrac(float offset);
+	float Read(int offset);
+	float ReadFrac(float offset);
+
+	float LinInt(const float fr, const float x0, const float x1) const;
 private:
 	int writeidx;
-	std::vector<float>* delayBuffer;
+	std::vector<float> delayBuffer;
 };
 

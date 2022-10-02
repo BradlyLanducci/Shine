@@ -133,13 +133,10 @@ void ShineAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 {
     juce::ScopedNoDenormals noDenormals;
 
-    float* channelL = buffer.getWritePointer(0);
-    float* channelR = buffer.getWritePointer(1);
+    auto totalNumInputChannels = getTotalNumInputChannels();
+    auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    for (int sample = 0; sample < buffer.getNumSamples(); sample++)
-    {
-        
-    }
+    shineProcessor.process(buffer);
 }
 
 //==============================================================================
