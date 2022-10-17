@@ -13,6 +13,7 @@
 ShineProcessor::ShineProcessor()
 {
     theReverb.createDelays();
+    theReverb.createFilters();
 }
 
 ShineProcessor::~ShineProcessor()

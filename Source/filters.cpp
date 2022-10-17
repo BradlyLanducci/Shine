@@ -84,6 +84,17 @@ void Filters::setHPCoefficients(float _cutoffFreq,
     b2 = (1.f + cs) / 2.f;
 }
 
+void Filters::setAPCoefficients(float delta, const float radius)
+{
+    // Note: alternative implementation for use in phasers
+    // delta = cos(2pi * wc)
+    const float a1 = -2.f * radius * delta;
+    const float a2 = radius * radius;
+    ff0 = fb2 = a2;
+    ff1 = fb1 = a1;
+    ff2 = 1.f;
+}
+
 float Filters::processSample(float in)
 {
     float out = 0.f;
@@ -97,6 +108,15 @@ float Filters::processSample(float in)
     y1 = out;
 
     return out;
+}
+
+float Filters::process_so(const float xn) {
+    float acc = ff0 * xn + mZ1;
+    mZ1 = ff1 * xn + mZ2;
+    mZ2 = ff2 * xn;
+    mZ1 -= fb1 * acc;
+    mZ2 -= fb2 * acc;
+    return acc;
 }
 
 // Use to copy coefficients to another channel

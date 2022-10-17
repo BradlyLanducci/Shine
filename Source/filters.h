@@ -29,6 +29,8 @@ public:
     void setPeakingCoefficients(float _cutoffFreq, float _qualityFactor, float _gain);
     void setLPCoefficients(float _cutoffFreq, float _qualityFactor);
     void setHPCoefficients(float _cutoffFreq, float _qualityFactor);
+    void setAPCoefficients(float _delta, const float radius);
+    float process_so(const float xn);
     float processSample(float in);
     float* getCoefficients();
     void setCoefficients(float* coefficients);
@@ -62,4 +64,13 @@ private:
     float alphaS = 0.f;
 
     float A = 0.f;
+
+    float ff0 = 0.f;
+    float ff1 = 0.f;
+    float ff2 = 0.f;
+    float fb1 = 0.f;
+    float fb2 = 0.f;
+
+    float mZ1 = 0.f;
+    float mZ2 = 0.f;
 };
