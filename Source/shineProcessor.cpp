@@ -14,6 +14,7 @@ ShineProcessor::ShineProcessor()
 {
     theReverb.createDelays();
     theReverb.createFilters();
+    theReverb.createADSR();
 }
 
 ShineProcessor::~ShineProcessor()
@@ -24,7 +25,7 @@ void ShineProcessor::process(juce::AudioBuffer<float>& buffer)
 {
     std::vector<float*> channels;
 
-    for (auto amountOfDelays = 0; amountOfDelays < 12; amountOfDelays++)
+    for (auto amountOfDelays = 0; amountOfDelays < 24; amountOfDelays++)
     {
         for (auto stereoChannel = 0; stereoChannel < 2; stereoChannel++)
             channels.push_back(buffer.getWritePointer(stereoChannel));
